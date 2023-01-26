@@ -119,7 +119,7 @@ if not interactive:
     import matplotlib
     print("Warning: Non interactive simulations, switching from '{}' backend to 'agg'...".format(matplotlib.get_backend()))  # DEBUG
     matplotlib.use("agg", force=True)
-
+ #z
 if interactive:
     import seaborn as sns
     sns.set(context="talk", style="whitegrid", palette="hls", font="sans-serif", font_scale=0.65)

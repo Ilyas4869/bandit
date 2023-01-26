@@ -369,6 +369,46 @@ if 6 in PROBLEMS:
         },
     ]
 
+# XXX Pb 7
+
+if 7 in PROBLEMS:
+
+    configuration["environment"] += [
+
+        {   # A simple piece-wise stationary problem
+
+            "arm_type": ARM_TYPE,
+
+            "params": {
+
+                "listOfMeans": [
+
+                    [0.5, 0.3, 0.4],  # 0    to 2999
+
+                    [0.5, 0.3, 0.9],  # 3000  to 4999
+
+                    [0.5, 0.3, 0.4],  # 5000 to end
+
+                ],
+
+                "changePoints": [
+
+                    int(0    * HORIZON / 10000.0),
+
+                    int(3000  * HORIZON / 10000.0),
+
+                    int(5000  * HORIZON / 10000.0),
+
+                    # 20000,  # XXX larger than horizon, just to see if it is a problem?
+
+                ],
+
+            }
+
+        },
+
+    ]
+
 
 # FIXME experimental code to check some condition on the problems
 
