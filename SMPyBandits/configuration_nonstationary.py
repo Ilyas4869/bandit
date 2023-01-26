@@ -185,18 +185,18 @@ if 2 in PROBLEMS:
             "arm_type": ARM_TYPE,
             "params": {
                 "listOfMeans": [
-                    [0.5, 0.3, 0.4],  # 0    to 2999
-                    [0.5, 0.3, 0.9],  # 3000  to 3599
-                    [0.5, 0.3, 0.9],  # 3600  to 3999
-                    [0.5, 0.3, 0.9],  # 4000  to 4999
-                    [0.5, 0.3, 0.4],  # 5000 to end
+                    [0.4, 0.5, 0.9],  # 0    to 399
+                    [0.5, 0.4, 0.7],  # 400  to 799
+                    [0.6, 0.3, 0.5],  # 800  to 1199
+                    [0.7, 0.2, 0.3],  # 1200 to 1599
+                    [0.8, 0.1, 0.1],  # 1600 to end
                 ],
                 "changePoints": [
-                    int(0    * HORIZON / 10000.0),
-                    int(3000  * HORIZON / 10000.0),
-                    int(3600  * HORIZON / 10000.0),
-                    int(4000  * HORIZON / 10000.0),
-                    int(5000  * HORIZON / 10000.0),
+                    int(0    * HORIZON / 2000.0),
+                    int(400  * HORIZON / 2000.0),
+                    int(800  * HORIZON / 2000.0),
+                    int(1200 * HORIZON / 2000.0),
+                    int(1600 * HORIZON / 2000.0),
                     # 20000,  # XXX larger than horizon, just to see if it is a problem?
                 ],
             }
@@ -368,7 +368,6 @@ if 6 in PROBLEMS:
             }
         },
     ]
-
 
 
 # FIXME experimental code to check some condition on the problems
