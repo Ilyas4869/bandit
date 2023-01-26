@@ -647,7 +647,8 @@ configuration.update({
     # # #     { "archtype": Exp3RPlusPlus, "params": { "horizon": HORIZON, } }
     # # # ] +
     [
-        { "archtype": klUCB, "params": { "klucb": klucb, }, "change_label": "klUCB", },
+        #{ "archtype": klUCB, "params": { "klucb": klucb, }, "change_label": "klUCB", },
+        { "archtype": UCB, "params": { } },
     ] +
     [
         # --- # Different versions of the discounted UCB algorithm
