@@ -826,75 +826,75 @@ configuration.update({
     #     for lazy_detect_change_only_x_steps, lazy_try_value_s_only_x_steps in ([(10, 10)] if HORIZON <= 20000 else ([(20, 20)] if HORIZON <= 100000 else [(50, 50)]))
     # ] +
     # XXX Test BernoulliGLR_IndexPolicy
-    [
-        { "archtype": archtype, "params": {
-            # "horizon": HORIZON,
-            "policy": policy,
-            "per_arm_restart": per_arm_restart,
-            # "max_nb_random_events": NB_BREAK_POINTS,
-            # "delta": delta0 * delta,
-            "delta": delta,
-            "alpha0": mult_alpha0 * alpha0,
-            "lazy_detect_change_only_x_steps": lazy_detect_change_only_x_steps,
-            "lazy_try_value_s_only_x_steps": lazy_try_value_s_only_x_steps,
-            # "variant": variant,
-            "use_localization": use_localization,
-            "use_increasing_alpha": use_increasing_alpha,
-        },
-        "change_label": r"GLR-klUCB({})".format(", ".join(s for s in [
-            "Local" if per_arm_restart else "Global",
-            "Localization" if use_localization else "",
-            archname,
-            # "threshold #{}".format(variant),
-            r"increasing $\alpha_t$" if use_increasing_alpha else "",
-            # r"\delta 1" if delta == DELTA_1 else r"\delta 2",
-            # r"$\delta={:.3g}$".format(delta),
-            # r"$\alpha_0={:.3g}$".format(alpha0),
-            # r"$\alpha_0={:.3g}$".format(mult_alpha0),
-            # # "$\Delta n={}$".format(lazy_detect_change_only_x_steps) if lazy_detect_change_only_x_steps != 10 else "",
-            # # "$\Delta s={}$".format(lazy_try_value_s_only_x_steps) if lazy_try_value_s_only_x_steps != 10 else "",
-        ] if s))
-        }
-        for archtype, archname in [
-            # (BernoulliGLR_IndexPolicy, "random expl."),   # OK BernoulliGLR_IndexPolicy is very much like CUSUM
-            # (BernoulliGLR_IndexPolicy_WithTracking, "tracking"),   # OK GaussianGLR_IndexPolicy_WithTracking is very much like Bernoulli GLR and is more efficient
-            # (BernoulliGLR_IndexPolicy_WithDeterministicExploration, "determ.expl."),   # OK GaussianGLR_IndexPolicy_WithDeterministicExploration is very much like Bernoulli GLR and is more efficient  XXX use this if using other exploration mechanisms XXX
-            (BernoulliGLR_IndexPolicy_WithDeterministicExploration, ""),   # OK GaussianGLR_IndexPolicy_WithDeterministicExploration is very much like Bernoulli GLR and is more efficient
-        ]
-        for policy in [
-            # UCB,  # XXX comment to only test klUCB
-            # klUCB,
-            klUCB_forGLR,
-        ]
-        # for (per_arm_restart, delta, alpha0) in zip(
-        #     [True],
-        #     [DELTA_LOCAL],
-        #     [ALPHA_LOCAL],
-        # )
-        # for (per_arm_restart, delta, alpha0) in zip(
-        #     [False],
-        #     [DELTA_GLOBAL],
-        #     [ALPHA_GLOBAL],
-        # )
-        for (per_arm_restart, delta, alpha0) in zip(
-            [True, False],
-            [DELTA_LOCAL, DELTA_GLOBAL],
-            [ALPHA_LOCAL, ALPHA_GLOBAL],
-        )
-        for use_localization in [True]
-        # for delta in [DELTA_1] # + [DELTA_2]  # XXX experimental!
-        # for alpha0 in [ALPHA_1]  # XXX experimental!
-        for mult_alpha0 in [1]  # comment from the + to use default parameter
-        # for alpha0 in [1, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001, 0]  # comment from the + to use default parameter
-        # for delta0 in [1000, 500, 100, 50, 10, 5, 1, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001]  # comment from the + to use default parameter
-        # for lazy_detect_change_only_x_steps in [1, 5, 10, 20]  # XXX uncomment to use default value
-        # for lazy_try_value_s_only_x_steps in [1, 5, 10, 20]  # XXX uncomment to use default value
-        # for lazy_detect_change_only_x_steps, lazy_try_value_s_only_x_steps in [(1, 1), (10, 10)]
-        # for lazy_detect_change_only_x_steps, lazy_try_value_s_only_x_steps in [(1, 1)]
-        for lazy_detect_change_only_x_steps, lazy_try_value_s_only_x_steps in ([(10, 10)] if HORIZON <= 20000 else ([(20, 20)] if HORIZON <= 100000 else [(50, 50)]))
-        # for variant in [None, 1, 2, 3]  # XXX variant for the threshold function...
-        for use_increasing_alpha in [False, True]  # FIXME try this!
-    ] +
+    # [
+    #     { "archtype": archtype, "params": {
+    #         # "horizon": HORIZON,
+    #         "policy": policy,
+    #         "per_arm_restart": per_arm_restart,
+    #         # "max_nb_random_events": NB_BREAK_POINTS,
+    #         # "delta": delta0 * delta,
+    #         "delta": delta,
+    #         "alpha0": mult_alpha0 * alpha0,
+    #         "lazy_detect_change_only_x_steps": lazy_detect_change_only_x_steps,
+    #         "lazy_try_value_s_only_x_steps": lazy_try_value_s_only_x_steps,
+    #         # "variant": variant,
+    #         "use_localization": use_localization,
+    #         "use_increasing_alpha": use_increasing_alpha,
+    #     },
+    #     "change_label": r"GLR-klUCB({})".format(", ".join(s for s in [
+    #         "Local" if per_arm_restart else "Global",
+    #         "Localization" if use_localization else "",
+    #         archname,
+    #         # "threshold #{}".format(variant),
+    #         r"increasing $\alpha_t$" if use_increasing_alpha else "",
+    #         # r"\delta 1" if delta == DELTA_1 else r"\delta 2",
+    #         # r"$\delta={:.3g}$".format(delta),
+    #         # r"$\alpha_0={:.3g}$".format(alpha0),
+    #         # r"$\alpha_0={:.3g}$".format(mult_alpha0),
+    #         # # "$\Delta n={}$".format(lazy_detect_change_only_x_steps) if lazy_detect_change_only_x_steps != 10 else "",
+    #         # # "$\Delta s={}$".format(lazy_try_value_s_only_x_steps) if lazy_try_value_s_only_x_steps != 10 else "",
+    #     ] if s))
+    #     }
+    #     for archtype, archname in [
+    #         # (BernoulliGLR_IndexPolicy, "random expl."),   # OK BernoulliGLR_IndexPolicy is very much like CUSUM
+    #         # (BernoulliGLR_IndexPolicy_WithTracking, "tracking"),   # OK GaussianGLR_IndexPolicy_WithTracking is very much like Bernoulli GLR and is more efficient
+    #         # (BernoulliGLR_IndexPolicy_WithDeterministicExploration, "determ.expl."),   # OK GaussianGLR_IndexPolicy_WithDeterministicExploration is very much like Bernoulli GLR and is more efficient  XXX use this if using other exploration mechanisms XXX
+    #         (BernoulliGLR_IndexPolicy_WithDeterministicExploration, ""),   # OK GaussianGLR_IndexPolicy_WithDeterministicExploration is very much like Bernoulli GLR and is more efficient
+    #     ]
+    #     for policy in [
+    #         # UCB,  # XXX comment to only test klUCB
+    #         # klUCB,
+    #         klUCB_forGLR,
+    #     ]
+    #     # for (per_arm_restart, delta, alpha0) in zip(
+    #     #     [True],
+    #     #     [DELTA_LOCAL],
+    #     #     [ALPHA_LOCAL],
+    #     # )
+    #     # for (per_arm_restart, delta, alpha0) in zip(
+    #     #     [False],
+    #     #     [DELTA_GLOBAL],
+    #     #     [ALPHA_GLOBAL],
+    #     # )
+    #     for (per_arm_restart, delta, alpha0) in zip(
+    #         [True, False],
+    #         [DELTA_LOCAL, DELTA_GLOBAL],
+    #         [ALPHA_LOCAL, ALPHA_GLOBAL],
+    #     )
+    #     for use_localization in [True]
+    #     # for delta in [DELTA_1] # + [DELTA_2]  # XXX experimental!
+    #     # for alpha0 in [ALPHA_1]  # XXX experimental!
+    #     for mult_alpha0 in [1]  # comment from the + to use default parameter
+    #     # for alpha0 in [1, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001, 0]  # comment from the + to use default parameter
+    #     # for delta0 in [1000, 500, 100, 50, 10, 5, 1, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001]  # comment from the + to use default parameter
+    #     # for lazy_detect_change_only_x_steps in [1, 5, 10, 20]  # XXX uncomment to use default value
+    #     # for lazy_try_value_s_only_x_steps in [1, 5, 10, 20]  # XXX uncomment to use default value
+    #     # for lazy_detect_change_only_x_steps, lazy_try_value_s_only_x_steps in [(1, 1), (10, 10)]
+    #     # for lazy_detect_change_only_x_steps, lazy_try_value_s_only_x_steps in [(1, 1)]
+    #     for lazy_detect_change_only_x_steps, lazy_try_value_s_only_x_steps in ([(10, 10)] if HORIZON <= 20000 else ([(20, 20)] if HORIZON <= 100000 else [(50, 50)]))
+    #     # for variant in [None, 1, 2, 3]  # XXX variant for the threshold function...
+    #     for use_increasing_alpha in [False, True]  # FIXME try this!
+    # ] +
     # [  # DONE test the AdSwitch policy and its corrected version
     #     {
     #         "archtype": AdSwitchNew,
