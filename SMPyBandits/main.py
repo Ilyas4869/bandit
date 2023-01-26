@@ -56,7 +56,7 @@ if getenv('SLEEP', 'False') != 'False':
     print("Done Sleeping for", SLEEP, "seconds... Now I can start the simulation...")
 
 USE_PICKLE = False   #: Should we save the Evaluator object to a .pickle file at the end of the simulation?
-USE_HD5 = True   #: Should we save the data to a .hdf5 file at the end of the simulation?
+USE_HD5 = False   #: Should we save the data to a .hdf5 file at the end of the simulation?
 
 # Parameters for the plots (where to save them) and what to draw
 PLOT_DIR = getenv('PLOT_DIR', 'plots')  #: Directory for the plots
@@ -118,7 +118,7 @@ if getenv('XKCD', 'False') == 'True' and interactive and not saveallfigs:
 if not interactive:
     import matplotlib
     print("Warning: Non interactive simulations, switching from '{}' backend to 'agg'...".format(matplotlib.get_backend()))  # DEBUG
-    matplotlib.use("agg", warn=True, force=True)
+    matplotlib.use("agg", force=True)
 
 if interactive:
     import seaborn as sns
