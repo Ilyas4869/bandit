@@ -586,66 +586,69 @@ configuration.update({
     # #         }
     # #     },
     # # ] +
-    [  # XXX Regular stochastic bandits algorithms!
-        # { "archtype": Uniform, "params": { } },
-        # # { "archtype": EmpiricalMeans, "params": { } },
-        # # { "archtype": UCBalpha, "params": { "alpha": 1, } },
-        { "archtype": UCB, "params": { } },
-        # # { "archtype": SWR_UCBalpha, "params": { "alpha": 1, } },  # WARNING experimental!
-        # { "archtype": BESA, "params": { "horizon": HORIZON, "non_binary": True, } },
-        # { "archtype": BayesUCB, "params": { "posterior": Beta, } },
-        # { "archtype": AdBandits, "params": { "alpha": 1, "horizon": HORIZON, } },
+    # [  # XXX Regular stochastic bandits algorithms!
+    #     # { "archtype": Uniform, "params": { } },
+    #     # # { "archtype": EmpiricalMeans, "params": { } },
+    #     # # { "archtype": UCBalpha, "params": { "alpha": 1, } },
+    #     { "archtype": UCB, "params": { } },
+    #     # # { "archtype": SWR_UCBalpha, "params": { "alpha": 1, } },  # WARNING experimental!
+    #     # { "archtype": BESA, "params": { "horizon": HORIZON, "non_binary": True, } },
+    #     # { "archtype": BayesUCB, "params": { "posterior": Beta, } },
+    #     # { "archtype": AdBandits, "params": { "alpha": 1, "horizon": HORIZON, } },
+    #     { "archtype": klUCB, "params": { "klucb": klucb, }, "change_label": "klUCB", },
+    #     # { "archtype": SWR_klUCB, "params": { "klucb": klucb, } },  # WARNING experimental!
+    #     { "archtype": Thompson, "params": { "posterior": Beta, }, "change_label": "Thompson Sampling" },
+    # ] +
+    # # DONE the OracleSequentiallyRestartPolicy with klUCB/UCB policy works quite well, but NOT optimally!
+    # [
+    #     { "archtype": OracleSequentiallyRestartPolicy, "params": {
+    #         "changePoints": CHANGE_POINTS,
+    #         "listOfMeans": LIST_OF_MEANS,
+    #         "policy": policy,
+    #         # "per_arm_restart": per_arm_restart,
+    #         "reset_for_all_change": reset_for_all_change,
+    #         "reset_for_suboptimal_change": reset_for_suboptimal_change,
+    #         # "full_restart_when_refresh": full_restart_when_refresh,
+    #     } }
+    #     for policy in [
+    #         UCB,  # XXX comment to only test klUCB
+    #         klUCB,
+    #         Thompson,  # XXX comment to only test klUCB
+    #         # Exp3PlusPlus,  # XXX comment to only test klUCB
+    #     ]
+    #     # for per_arm_restart in [True, False]
+    #     # for full_restart_when_refresh in [True, False]
+    #     for reset_for_all_change, reset_for_suboptimal_change in [
+    #         (True,  False),  # optimal
+    #         # (True,  True),  # sub sub optimal
+    #         # (False, True),  # ? optimal
+    #         # (False, False),  # sub optimal
+    #     ]
+    # ] +
+    # # TODO How does the Exp3S algorithm work??
+    # [
+    #     { "archtype": Exp3S, "params": {
+    #         "horizon": HORIZON,
+    #         "max_nb_random_events": NB_BREAK_POINTS,
+    #         # "alpha0": alpha0,
+    #         # "gamma0": gamma0,
+    #     } }
+    #     # for alpha0 in [100, 10, 1, 0.1, 0.01, 0.001]  # try different values for alpha, but using the formula, just a constant scaling
+    #     # # for alpha0 in [100, 50, 1]  # try different values for alpha, but using the formula, just a constant scaling
+    #     # for gamma0 in [100, 10, 1, 0.1, 0.01, 0.001]  # try different values for alpha, but using the formula, just a constant scaling
+    #     # # for gamma0 in [10, 1, 0.01]  # try different values for alpha, but using the formula, just a constant scaling
+    # ] +
+    # # The Exp3R algorithm works reasonably well
+    # [
+    #     { "archtype": Exp3R, "params": { "horizon": HORIZON, } }
+    # ] +
+    # # # # XXX The Exp3RPlusPlus variant of Exp3R algorithm works also reasonably well
+    # # # [
+    # # #     { "archtype": Exp3RPlusPlus, "params": { "horizon": HORIZON, } }
+    # # # ] +
+    [
         { "archtype": klUCB, "params": { "klucb": klucb, }, "change_label": "klUCB", },
-        # { "archtype": SWR_klUCB, "params": { "klucb": klucb, } },  # WARNING experimental!
-        { "archtype": Thompson, "params": { "posterior": Beta, }, "change_label": "Thompson Sampling" },
     ] +
-    # DONE the OracleSequentiallyRestartPolicy with klUCB/UCB policy works quite well, but NOT optimally!
-    [
-        { "archtype": OracleSequentiallyRestartPolicy, "params": {
-            "changePoints": CHANGE_POINTS,
-            "listOfMeans": LIST_OF_MEANS,
-            "policy": policy,
-            # "per_arm_restart": per_arm_restart,
-            "reset_for_all_change": reset_for_all_change,
-            "reset_for_suboptimal_change": reset_for_suboptimal_change,
-            # "full_restart_when_refresh": full_restart_when_refresh,
-        } }
-        for policy in [
-            UCB,  # XXX comment to only test klUCB
-            klUCB,
-            Thompson,  # XXX comment to only test klUCB
-            # Exp3PlusPlus,  # XXX comment to only test klUCB
-        ]
-        # for per_arm_restart in [True, False]
-        # for full_restart_when_refresh in [True, False]
-        for reset_for_all_change, reset_for_suboptimal_change in [
-            (True,  False),  # optimal
-            # (True,  True),  # sub sub optimal
-            # (False, True),  # ? optimal
-            # (False, False),  # sub optimal
-        ]
-    ] +
-    # TODO How does the Exp3S algorithm work??
-    [
-        { "archtype": Exp3S, "params": {
-            "horizon": HORIZON,
-            "max_nb_random_events": NB_BREAK_POINTS,
-            # "alpha0": alpha0,
-            # "gamma0": gamma0,
-        } }
-        # for alpha0 in [100, 10, 1, 0.1, 0.01, 0.001]  # try different values for alpha, but using the formula, just a constant scaling
-        # # for alpha0 in [100, 50, 1]  # try different values for alpha, but using the formula, just a constant scaling
-        # for gamma0 in [100, 10, 1, 0.1, 0.01, 0.001]  # try different values for alpha, but using the formula, just a constant scaling
-        # # for gamma0 in [10, 1, 0.01]  # try different values for alpha, but using the formula, just a constant scaling
-    ] +
-    # The Exp3R algorithm works reasonably well
-    [
-        { "archtype": Exp3R, "params": { "horizon": HORIZON, } }
-    ] +
-    # # # XXX The Exp3RPlusPlus variant of Exp3R algorithm works also reasonably well
-    # # [
-    # #     { "archtype": Exp3RPlusPlus, "params": { "horizon": HORIZON, } }
-    # # ] +
     [
         # --- # Different versions of the discounted UCB algorithm
         { "archtype": DiscountedklUCB, "params": {
@@ -656,6 +659,14 @@ configuration.update({
         for gamma in GAMMAS
         # for alpha in ALPHAS
         # for useRealDiscount in [True, False]
+    ] +
+    [
+        # --- # Different versions of the sliding window klUCB algorithm
+        { "archtype": SWklUCB, "params": { "tau": tau, }, "change_label": "SW-klUCB" }
+        for tau in TAUS
+    ] +
+    [
+        { "archtype": Uniform, "params": { } },
     ] +
     # # [
     # #     # --- # XXX experimental discounted UCB algorithm, knowing the horizon
@@ -685,19 +696,19 @@ configuration.update({
     # #     { "archtype": SWUCBPlus, "params": { "horizon": HORIZON, "alpha": alpha, } }
     # #     for alpha in ALPHAS
     # # ] +
-    [
-        # --- # Different versions of the sliding window klUCB algorithm
-        { "archtype": SWklUCB, "params": { "tau": tau, }, "change_label": "SW-klUCB" }
-        for tau in TAUS
-    ] +
-    [  # XXX DiscountedThompson works REALLY well!
-        {
-            "archtype": DiscountedThompson,
-            "params": { "posterior": DiscountedBeta, "gamma": gamma, },
-            "change_label": "DTS",
-        }
-        for gamma in GAMMAS
-    ] +
+    # [
+    #     # --- # Different versions of the sliding window klUCB algorithm
+    #     { "archtype": SWklUCB, "params": { "tau": tau, }, "change_label": "SW-klUCB" }
+    #     for tau in TAUS
+    # ] +
+    # [  # XXX DiscountedThompson works REALLY well!
+    #     {
+    #         "archtype": DiscountedThompson,
+    #         "params": { "posterior": DiscountedBeta, "gamma": gamma, },
+    #         "change_label": "DTS",
+    #     }
+    #     for gamma in GAMMAS
+    # ] +
     # [  # XXX test the AdSwitch policy and its corrected version
     #     {
     #         "archtype": AdSwitch,
@@ -725,50 +736,50 @@ configuration.update({
     #     for lmbda in [1]  # [0.1, 0.5, 1, 5, 10]
     # ] +
     # XXX The Monitored_IndexPolicy with specific tuning of the input parameters
-    [
-        { "archtype": Monitored_IndexPolicy, "params": {
-            "policy": policy,
-            # "per_arm_restart": per_arm_restart,
-            "horizon": HORIZON,
-            "w": w,
-            "delta": DELTA_for_MUCB,
-        },
-            "change_label": "M-klUCB",
-        }
-        # for per_arm_restart in PER_ARM_RESTART
-        for policy in [
-            # UCB,
-            klUCB,  # XXX comment to only test UCB
-        ]
-        # for w in [20, 10*NB_ARMS, WINDOW_SIZE, NB_ARMS*WINDOW_SIZE, 2*NB_ARMS*WINDOW_SIZE]
-        for w in [WINDOW_SIZE]
-    ] +
-    # XXX Test a few CD-MAB algorithms that need to know NB_BREAK_POINTS
-    [
-        { "archtype": archtype, "params": {
-            "horizon": HORIZON,
-            "policy": policy,
-            "max_nb_random_events": NB_BREAK_POINTS,
-            # "min_number_of_observation_between_change_point": MIN_NUMBER_OF_OBSERVATION_BETWEEN_CHANGE_POINT,
-            "lazy_detect_change_only_x_steps": lazy_detect_change_only_x_steps,
-            "epsilon": EPSILON_for_CUSUM,
-            "use_localization": use_localization,
-        },
-            "change_label": "CUSUM-klUCB{}".format("(Localization)" if use_localization else ""),
-        }
-        for archtype in [
-            CUSUM_IndexPolicy,
-            # PHT_IndexPolicy,  # OK PHT_IndexPolicy is very much like CUSUM
-        ]
-        for policy in [
-            # UCB,  # XXX comment to only test klUCB
-            klUCB,
-        ]
-        for use_localization in [True]
-        # for lazy_detect_change_only_x_steps in [1, 2, 5]
-        # for lazy_detect_change_only_x_steps in [1]
-        for lazy_detect_change_only_x_steps in ([20] if HORIZON <= 20000 else ([35] if HORIZON <= 100000 else [50]))
-    ] +
+    # [
+    #     { "archtype": Monitored_IndexPolicy, "params": {
+    #         "policy": policy,
+    #         # "per_arm_restart": per_arm_restart,
+    #         "horizon": HORIZON,
+    #         "w": w,
+    #         "delta": DELTA_for_MUCB,
+    #     },
+    #         "change_label": "M-klUCB",
+    #     }
+    #     # for per_arm_restart in PER_ARM_RESTART
+    #     for policy in [
+    #         # UCB,
+    #         klUCB,  # XXX comment to only test UCB
+    #     ]
+    #     # for w in [20, 10*NB_ARMS, WINDOW_SIZE, NB_ARMS*WINDOW_SIZE, 2*NB_ARMS*WINDOW_SIZE]
+    #     for w in [WINDOW_SIZE]
+    # ] +
+    # # XXX Test a few CD-MAB algorithms that need to know NB_BREAK_POINTS
+    # [
+    #     { "archtype": archtype, "params": {
+    #         "horizon": HORIZON,
+    #         "policy": policy,
+    #         "max_nb_random_events": NB_BREAK_POINTS,
+    #         # "min_number_of_observation_between_change_point": MIN_NUMBER_OF_OBSERVATION_BETWEEN_CHANGE_POINT,
+    #         "lazy_detect_change_only_x_steps": lazy_detect_change_only_x_steps,
+    #         "epsilon": EPSILON_for_CUSUM,
+    #         "use_localization": use_localization,
+    #     },
+    #         "change_label": "CUSUM-klUCB{}".format("(Localization)" if use_localization else ""),
+    #     }
+    #     for archtype in [
+    #         CUSUM_IndexPolicy,
+    #         # PHT_IndexPolicy,  # OK PHT_IndexPolicy is very much like CUSUM
+    #     ]
+    #     for policy in [
+    #         # UCB,  # XXX comment to only test klUCB
+    #         klUCB,
+    #     ]
+    #     for use_localization in [True]
+    #     # for lazy_detect_change_only_x_steps in [1, 2, 5]
+    #     # for lazy_detect_change_only_x_steps in [1]
+    #     for lazy_detect_change_only_x_steps in ([20] if HORIZON <= 20000 else ([35] if HORIZON <= 100000 else [50]))
+    # ] +
     # # # # XXX Test a UCBLCB_IndexPolicy algorithm
     # # # [
     # # #     { "archtype": UCBLCB_IndexPolicy, "params": {
