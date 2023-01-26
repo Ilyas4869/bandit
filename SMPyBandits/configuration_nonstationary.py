@@ -185,9 +185,9 @@ if 2 in PROBLEMS:
             "arm_type": ARM_TYPE,
             "params": {
                 "listOfMeans": [
-                    [0.5, 0.3, 0.4],  # 0    to 2999
-                    [0.5, 0.3, 0.9],  # 3000  to 4999
-                    [0.5, 0.3, 0.4],  # 5000 to end
+                    [0.3, 0.5, 0.9],  # 0    to 399
+                    [0.3, 0.2, 0.9],  # 400  to 799
+                    [0.3, 0.2, 0.1],  # 800  to 1199
                 ],
                 "changePoints": [
                     int(0    * HORIZON / 2000.0),
