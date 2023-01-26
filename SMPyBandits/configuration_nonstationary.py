@@ -192,11 +192,11 @@ if 2 in PROBLEMS:
                     [0.8, 0.1, 0.1],  # 1600 to end
                 ],
                 "changePoints": [
-                    int(0    * HORIZON / 2000.0),
-                    int(400  * HORIZON / 2000.0),
-                    int(800  * HORIZON / 2000.0),
-                    int(1200 * HORIZON / 2000.0),
-                    int(1600 * HORIZON / 2000.0),
+                    int(0    * HORIZON / 200.0),
+                    int(40  * HORIZON / 200.0),
+                    int(80  * HORIZON / 200.0),
+                    int(120 * HORIZON / 200.0),
+                    int(160 * HORIZON / 200.0),
                     # 20000,  # XXX larger than horizon, just to see if it is a problem?
                 ],
             }
@@ -500,7 +500,7 @@ TAUS   = [
         # 500, 1000, 2000,
         int(2 * np.sqrt(HORIZON * np.log(HORIZON) / max(1, NB_BREAK_POINTS))),  # "optimal" value according to [Garivier & Moulines, 2008]
     ]
-GAMMAS = [0.95]  #+ [0.9999, 0.99, 0.75, 0.5]
+GAMMAS = [0.9999, 0.95, 0.75, 0.5]  #+ [0.9999, 0.99, 0.75, 0.5]
 GAMMA_T_UpsilonT = 1 - np.sqrt(NB_BREAK_POINTS / HORIZON) / 4.
 # GAMMAS = [GAMMA_T_UpsilonT]
 
