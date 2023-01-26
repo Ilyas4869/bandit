@@ -190,9 +190,9 @@ if 2 in PROBLEMS:
                     [0.5, 0.3, 0.4],  # 5000 to end
                 ],
                 "changePoints": [
-                    int(0    * HORIZON / 10000.0),
-                    int(3000  * HORIZON / 10000.0),
-                    int(5000  * HORIZON / 10000.0),
+                    int(0    * HORIZON / 2000.0),
+                    int(300  * HORIZON / 2000.0),
+                    int(500  * HORIZON / 2000.0),
                     # 20000,  # XXX larger than horizon, just to see if it is a problem?
                 ],
             }
