@@ -911,4 +911,4 @@ configuration.update({
 
 print("Loaded experiments configuration from 'configuration_nonstationnary.py' :")
 print("configuration['policies'] =", configuration["policies"])  # DEBUG
-print("configuration['environment'] =", configuration["environment"])  # DEBUG
+print("csccconfiguration['environment'] =", configuration["environment"])  # DEBUG
